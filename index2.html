@@ -67,40 +67,7 @@
             background-color: #f2ebd8;
         }
     </style>
-     <script type="text/javascript">
-        if (("UserDetails"  in localStorage)==false){
-          
-          var ar=[]
-          ar=JSON.stringify(ar)
-
-          localStorage.setItem('UserDetails',ar)
-        }
-
-        function clickme(){
-            var name=document.getElementById('Name').value;
-            var email=document.getElementById('Email').value;
-            var num=document.getElementById('Phone').value;
-            var date=document.getElementById('Date').value;
-            var time=document.getElementById('Time').value;
-
-            
-            var dic={
-              name:name,
-              email:email,
-              num:num,
-              date:date,
-              time:time
-            }
-
-            var ar=JSON.parse(localStorage.getItem('UserDetails'))
-            
-            ar.push(dic)
-
-            ar=JSON.stringify(ar)
-            localStorage.setItem('UserDetails',ar)
-            
-        }
-    </script>
+     
 </head>
 <body>
     
@@ -139,22 +106,8 @@
               <input type="tel" id="Phone" name="phone" class="form-control" style="width: 100%;">
             
           </div>
+         
           
-          <div class="form-group row">
-            <label for="time" class="col-sm-2 col-form-label">Time:</label>
-          </div>
-          <div class="form-group row">
-            
-              <div class="row">
-                <div class="col-sm-6">
-                  <input type="date" id="Date" name="date" class="form-control" style="width: 100%;">
-                </div>
-                <div class="col-sm-6">
-                  <input type="time" id="Time" name="time" class="form-control" style="width: 100%;">
-              
-              </div>
-            </div>
-          </div>
           <br>
           <div class="form-group row">
             
@@ -164,7 +117,54 @@
           </div>
         </form>
       </div>
-      
+      <div>
+        <ul id="list">
+          
+        </ul>
+      </div>
+      <script type="text/javascript">
+         
+        var list=document.getElementById('list')
+        
+        function addElement(name,email,number){
+                    var li=document.createElement('li')
+
+                    var text=document.createTextNode(name+'|'+email+'|'+number)
+                    var btn=document.createElement('button')
+                    btn.textContent='Delete'
+                    li.id=email;
+                    li.appendChild(text)
+                    li.appendChild(btn)
+                    list.appendChild(li);
+                    btn.addEventListener('click',function(event){
+                        localStorage.removeItem(li.id);
+                        list.removeChild(li)
+                    })
+                }
+
+       
+
+        function clickme(){
+            var name=document.getElementById('Name').value;
+            var email=document.getElementById('Email').value;
+            var num=document.getElementById('Phone').value;
+            
+            
+
+            
+            var dic={
+              name:name,
+              email:email,
+              num:num,
+            }
+
+            addElement(name,email,num)
+            localStorage.setItem(email,JSON.stringify(dic))
+            
+            
+            
+        }
+    </script>
    
 </body>
 </html>
