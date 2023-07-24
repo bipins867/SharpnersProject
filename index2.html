@@ -125,6 +125,10 @@
       <script type="text/javascript">
          
         var list=document.getElementById('list')
+
+        var tname=document.getElementById('Name')
+        var temail=document.getElementById('Email')
+        var tnum=document.getElementById('Phone')
         
         function addElement(name,email,number){
                     var li=document.createElement('li')
@@ -132,14 +136,32 @@
                     var text=document.createTextNode(name+'|'+email+'|'+number)
                     var btn=document.createElement('button')
                     btn.textContent='Delete'
+
+                    var editButton=document.createElement('button')
+                    editButton.textContent='Edit'
+
                     li.id=email;
                     li.appendChild(text)
+                    li.appendChild(editButton)
                     li.appendChild(btn)
+                    
                     list.appendChild(li);
                     btn.addEventListener('click',function(event){
                         localStorage.removeItem(li.id);
                         list.removeChild(li)
                     })
+
+                    editButton.addEventListener('click',function(event){
+                      data=JSON.parse(localStorage.getItem(li.id))
+                      localStorage.removeItem(li.id)
+                      tname.value=data.name;
+                      temail.value=data.email;
+                      tnum.value=data.num
+                      list.removeChild(li)
+                    })
+                    tname.value=''
+                    temail.value=''
+                    tnum.value=''
                 }
 
        
