@@ -68,6 +68,14 @@
         }
     </style>
      <script type="text/javascript">
+        if (("UserDetails"  in localStorage)==false){
+          
+          var ar=[]
+          ar=JSON.stringify(ar)
+
+          localStorage.setItem('UserDetails',ar)
+        }
+
         function clickme(){
             var name=document.getElementById('Name').value;
             var email=document.getElementById('Email').value;
@@ -75,11 +83,21 @@
             var date=document.getElementById('Date').value;
             var time=document.getElementById('Time').value;
 
-            localStorage.setItem("Name",name);
-            localStorage.setItem("Email",email);
-            localStorage.setItem("Phone",num);
-            localStorage.setItem("Date",date);
-            localStorage.setItem("Time",time);
+            
+            var dic={
+              name:name,
+              email:email,
+              num:num,
+              date:date,
+              time:time
+            }
+
+            var ar=JSON.parse(localStorage.getItem('UserDetails'))
+            
+            ar.push(dic)
+
+            ar=JSON.stringify(ar)
+            localStorage.setItem('UserDetails',ar)
             
         }
     </script>
