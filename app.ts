@@ -4,8 +4,9 @@ const button=document.querySelector('button')!
 
 type numString=number|string;
 
-const numResult:number[]=[] 
-const stringResult:string[]=[]
+const numResult:Array<number>=[] 
+const stringResult:Array<string>=[]
+type Result={val:number;timestamp:Date}
 
 function addSum(num1:numString,num2:numString){
     if(typeof num1 === "number" && typeof num2==="number"){
@@ -18,9 +19,9 @@ function addSum(num1:numString,num2:numString){
     return +num1 + +num2
 }
 
-function printResult(result:{val:number; timestamp:Date}){
+function printResult(result:Result){
     console.log(result.val)
-}
+} 
 
 button.onclick=(event)=>{
     const val1=num1.value;
@@ -35,3 +36,13 @@ button.onclick=(event)=>{
     console.log(numResult)
     console.log(stringResult)
 }
+
+const myPromise=new Promise<string>((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve("IT worked")
+    },3000)
+})
+
+myPromise.then((result)=>{
+    console.log(result.split('w'))
+})
